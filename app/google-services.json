@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1043747938116",
+    "firebase_url": "https://findmydate-1c6f4.firebaseio.com",
+    "project_id": "findmydate-1c6f4",
+    "storage_bucket": "findmydate-1c6f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043747938116:android:366541a3d036de35",
+        "android_client_info": {
+          "package_name": "com.example.findmydate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043747938116-kaa3153j3mmost42rjvs4nbet23unfbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.findmydate",
+            "certificate_hash": "efa38c5740ccbfb5321db42bb994b1f42df43691"
+          }
+        },
+        {
+          "client_id": "1043747938116-j92me45hkqku9tq1m6fr9qhq5dugunr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0zn-I43w7GzWWGlOmFrTkuHAVftXWu1U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043747938116-i6a5dqp4tolgkrku8gthopokv7imh0f7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cd.FindMyDate"
+              }
+            },
+            {
+              "client_id": "1043747938116-j92me45hkqku9tq1m6fr9qhq5dugunr8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

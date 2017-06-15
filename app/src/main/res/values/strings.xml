@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FindMyDate</string>
+    <string name="facebook_app_id">1977629419139652</string>
+    <string name="fb_login_protocol_scheme">fb1977629419139652</string>
+</resources>
