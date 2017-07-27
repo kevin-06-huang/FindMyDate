@@ -2,10 +2,15 @@ package com.example.findmydate;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.content.Intent;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -24,8 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends Activity {
 
     private LoginButton loginButton;
@@ -36,14 +41,22 @@ public class MainActivity extends Activity {
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private AccessTokenTracker accessTokenTracker;
+   // private FirebaseDatabase firebaseDatabase;
+   // private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         FirebaseApp.initializeApp(getApplicationContext());
         auth = FirebaseAuth.getInstance();
+        final ImageView imgView = (ImageView)findViewById(R.id.launch_image);
+
+        final FragmentManager fragmentManager = getFragmentManager();
+
+
+        //  firebaseDatabase = FirebaseDatabase.getInstance();
+      //  databaseReference = firebaseDatabase.getReference();
         authListener = new FirebaseAuth.AuthStateListener() {
 
 
@@ -51,21 +64,31 @@ public class MainActivity extends Activity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-        //        Log.d(TAG, "onAuthStateChanged:event:" + user.getUid());
+              //  Log.d(TAG, "onAuthStateChanged:event:" + user.getUid());
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    updateUI(user);
+                    imgView .setVisibility(View.GONE);
+
+                    Fragment fragment = fragmentManager.findFragmentByTag("profile_fragment");
+                    if (fragment == null) {
+                        // if none were found, create it
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragment = new ProfileFragment();
+                        fragmentTransaction.add(R.id.profile_fragment, fragment);
+                        fragmentTransaction.commit();
+                    }
+
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    updateUI(user);
+                    imgView .setVisibility(View.VISIBLE);
                 }
 
 
             }
         };
 
-        mStatusTextView = (TextView) findViewById(R.id.status);
-        mDetailTextView = (TextView) findViewById(R.id.detail);
+     //   mStatusTextView = (TextView) findViewById(R.id.status);
+     //   mDetailTextView = (TextView) findViewById(R.id.detail);
 
         //  FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -102,12 +125,15 @@ public class MainActivity extends Activity {
             }
         };
     }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser != null)
-           updateUI(currentUser);
+      ///  FirebaseUser currentUser = auth.getCurrentUser();
+       // if(currentUser != null)
+        //   updateUI(currentUser);
         auth.addAuthStateListener(authListener);
     }
 
@@ -138,21 +164,21 @@ public class MainActivity extends Activity {
     }
     @Override
     public void onDestroy() {
-
       //  auth.getInstance().signOut();
         super.onDestroy();
-
     }
+    public FirebaseUser getUser(){
+        return auth.getCurrentUser();
+    }
+
     private void updateUI(FirebaseUser user) {
-      //  hideProgressDialog();
-      //  Log.d("hihi", user.getDisplayName() );
         if (user != null) {
-            mStatusTextView.setText(user.getDisplayName());
-            mDetailTextView.setText(user.getEmail());
+          //  mStatusTextView.setText(user.getDisplayName());
+          //  mDetailTextView.setText(user.getEmail());
 
         } else {
-            mStatusTextView.setText("Nobody");
-            mDetailTextView.setText("No Email");
+           // mStatusTextView.setText("Nobody");
+           // mDetailTextView.setText("No Email");
 
         }
     }
