@@ -8,35 +8,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ValueEventListener;
+
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements DatabaseHelper.DatabaseChangeListener{
 
-/*
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
-    }
-    */
+    private User currentUser;
+    private User[] visibleUsers;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        MainActivity activity = (MainActivity) getActivity();
-        Log.d("test_fragment", Boolean.toString(activity == null));
-
+        MainActivity activity = (MainActivity)getActivity();
+        //access database and instantiate user
+        currentUser = activity.getUser();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        TextView mDetailTextView =  (TextView) view.findViewById(R.id.detail);
+        Log.d("profile_fragment2", Boolean.toString(mDetailTextView == null));
+        mDetailTextView.setText("shitasdffffffffffffffffff");
+        return view;
     }
 
+    @Override
+    public void onDatabaseChange(String value) {
 
+    }
 }
