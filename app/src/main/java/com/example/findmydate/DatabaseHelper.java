@@ -4,7 +4,7 @@ import android.renderscript.Sampler;
 import android.util.Log;
 
 import java.util.List;
-import java.util.ArrayList''
+import java.util.ArrayList;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,11 +21,6 @@ public class DatabaseHelper {
 
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static DatabaseReference databaseReference = firebaseDatabase.getReference();
-    private List<DatabaseChangeListener> listeners = new ArrayList<DatabaseChangeListener>();
-
-    public interface DatabaseChangeListener{
-        public void onDatabaseChange(String value);
-    }
 
     public static void register(User user){
         DatabaseReference mDatabaseReference = databaseReference.child("users").child(user.getUid());
@@ -36,18 +31,5 @@ public class DatabaseHelper {
         mDatabaseReference.child("uid").setValue(user.getUid());
 
     }
-    public static User[] getVisibleUsers(User user){
-        return null;
-    }
 
-
-    public void addListener(DatabaseChangeListener listener) {
-        listeners.add(listener);
-    }
-
-    private void notifyListeners() {
-        for (DatabaseChangeListener listener : listeners) {
-            listener.onDatabaseChange("");
-        }
-    }
 }

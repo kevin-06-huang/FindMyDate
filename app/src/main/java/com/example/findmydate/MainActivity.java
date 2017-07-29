@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
     private FirebaseAuth.AuthStateListener authListener;
     private AccessTokenTracker accessTokenTracker;
 
+    private static boolean PROFILE_FLAG = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,6 @@ public class MainActivity extends Activity {
         final ImageView imgView = (ImageView)findViewById(R.id.launch_image);
 
         final FragmentManager fragmentManager = getFragmentManager();
-
 
 
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -71,14 +72,16 @@ public class MainActivity extends Activity {
                     }
 
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + firebaseUser.getUid());
-                    imgView .setVisibility(View.GONE);
+                    imgView.setVisibility(View.GONE);
                     Fragment fragment = fragmentManager.findFragmentByTag("profile_fragment");
-                    if (fragment == null ) {
+                    if (fragment == null && PROFILE_FLAG == false) {
                         // if none were found, create it
+                        Log.d("fragment firing", "1");
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragment = new ProfileFragment();
                         fragmentTransaction.add(R.id.container, fragment, "profile_fragment");
                         fragmentTransaction.commit();
+                        PROFILE_FLAG = true;
                     }
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -149,5 +152,6 @@ public class MainActivity extends Activity {
     public User getUser(){
         return new User(auth.getCurrentUser())  ;
     }
+
 
 }

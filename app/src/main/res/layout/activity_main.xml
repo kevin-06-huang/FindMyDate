@@ -8,43 +8,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.findmydate.MainActivity">
 
-<!--
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="asdgsd"
-        android:layout_marginTop="80dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/detail"
-        android:layout_alignStart="@+id/detail" />
-
-
-    <TextView
-        android:id="@+id/detail2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Firebase User ID: 123456789abc"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
--->
-
     <ImageView
         android:id="@+id/launch_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/heart"
         />
-    <!--
-    <fragment android:name="com.example.findmydate.ProfileFragment"
-        android:id="@+id/profile_fragment"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
-        -->
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
