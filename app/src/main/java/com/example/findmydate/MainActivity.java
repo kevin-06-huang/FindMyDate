@@ -25,11 +25,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import android.net.Uri;
+import com.google.firebase.storage.FirebaseStorage;
 
 import android.content.SharedPreferences;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageReference;
 
 
 public class MainActivity extends Activity {
@@ -43,6 +46,7 @@ public class MainActivity extends Activity {
     private AccessTokenTracker accessTokenTracker;
 
     private static boolean PROFILE_FLAG = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class MainActivity extends Activity {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                 if (firebaseUser != null) {
-                    if (!pref.contains("FIRST_LAUNCH")) {
+                    if (pref.contains("FIRST_LAUNCH")) {
                         DatabaseHelper.register(new User(firebaseUser));
                         pref.edit().putBoolean("FIRST_LAUNCH", true).commit();
                     }
@@ -149,9 +153,8 @@ public class MainActivity extends Activity {
                 });
     }
 
-    public User getUser(){
+    public  User getUser(){
         return new User(auth.getCurrentUser())  ;
     }
-
 
 }
