@@ -34,6 +34,7 @@ public class AsynchronousTask extends AsyncTask<User, Void, Boolean>{
 
         //  InputStream stream = new FileInputStream(new File("path/to/images/rivers.jpg"));
         InputStream input = null;
+
         try{
             input = new URL(params[0].getProfileURL()).openStream();
 
