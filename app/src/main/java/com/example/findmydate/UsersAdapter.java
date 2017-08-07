@@ -2,10 +2,12 @@ package com.example.findmydate;
 
 import java.util.ArrayList;
 
+import android.media.Image;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
 
@@ -25,6 +27,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
         // Lookup view for data population
         TextView name = (TextView) convertView.findViewById(R.id.name);
         // Populate the data into the template view using the data object
+        ImageView picture = (ImageView)  convertView.findViewById(R.id.profile_picture);
         name.setText(user.getName());
         // Return the completed view to render on screen
         return convertView;

@@ -1,6 +1,7 @@
 package com.example.findmydate;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v4.view.AsyncLayoutInflater;
@@ -41,72 +42,46 @@ public class DatabaseHelper {
         mDatabaseReference.child("name").setValue(user.getName());
         mDatabaseReference.child("profileURL").setValue(user.getProfileURL());
         mDatabaseReference.child("uid").setValue(user.getUid());
-        new AsynchronousTask().execute(user);
+        new AsynchronousUploadTask().execute(user);
 
     }
-    private static void uploadFile(User user) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference mStorageReference = storage.getReferenceFromUrl("gs://findmydate-1c6f4.appspot.com/");
-        StorageReference mStorageReferenceImages = mStorageReference.child(user.getUid() + "/profile.jpg");
+    private static class AsynchronousUploadTask extends AsyncTask<User, Void, Boolean> {
 
-      //  InputStream stream = new FileInputStream(new File("path/to/images/rivers.jpg"));
-        InputStream input = null;
-        try{
-            input = new URL(user.getProfileURL()).openStream();
 
-        }catch(MalformedURLException e){
+        @Override
+        protected Boolean doInBackground(User... params) {
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference mStorageReference = storage.getReferenceFromUrl("gs://findmydate-1c6f4.appspot.com/");
+            StorageReference mStorageReferenceImages = mStorageReference.child(params[0].getUid() + "/profile_pic.jpg");
 
-        }catch(IOException e){
+            //  InputStream stream = new FileInputStream(new File("path/to/images/rivers.jpg"));
+            InputStream input = null;
 
+            try{
+                input = new URL(params[0].getProfileURL()).openStream();
+
+            }catch(MalformedURLException e){
+
+            }catch(IOException e){
+
+            }
+
+            UploadTask uploadTask = mStorageReferenceImages.putStream(input);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                }
+            });
+            return false;
         }
 
-        UploadTask uploadTask = mStorageReferenceImages.putStream(input);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-              //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
-            }
-        });
-        /*
-     StorageReference mStorageReferenceImages = mStorageReference.child("Images/profile.jpg");
-        //showHorizontalProgressDialog("Uploading", "Please wait...");
-        StorageReference uploadStorageReference = mStorageReference.child(uri.getLastPathSegment());
-        //final UploadTask uploadTask = uploadStorageReference.putFile(pUri);
-        final UploadTask uploadTask = mStorageReferenceImages.putFile(uri);
-        Log.d("upload", "FacebookProfile:pUri: " + uri);
-
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot pTaskSnapshot) {
-                Log.d(TAG, "uploadFileonSuccess:" + pTaskSnapshot);
-                Uri downloadUrl = pTaskSnapshot.getDownloadUrl();
-                //hideProgressDialog();
-                if (downloadUrl != null) {
-                    imageUploaded = true;
-                    //btnDownload.setEnabled(true);
-                    //Glide.with(context).load(downloadUrl).into(imageView);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception pE) {
-                Log.d(TAG, "uploadFileonFailure:" + pE);
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot pTaskSnapshot) {
-                Log.d(TAG, "uploadFileonProgress:" + pTaskSnapshot);
-
-                //int progress = (int) (100 * (float) pTaskSnapshot.getBytesTransferred() / pTaskSnapshot.getTotalByteCount());
-                //updateProgress(progress);
-            }
-        });*/
     }
 
 }

@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                 if (firebaseUser != null) {
-                    if (pref.contains("FIRST_LAUNCH")) {
+                    if (!pref.contains("FIRST_LAUNCH")) {
                         DatabaseHelper.register(new User(firebaseUser));
                         pref.edit().putBoolean("FIRST_LAUNCH", true).commit();
                     }
