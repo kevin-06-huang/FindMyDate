@@ -1,7 +1,7 @@
 package com.example.findmydate;
 
-import java.util.List;
 import java.util.ArrayList;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,11 +10,27 @@ import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
+import android.app.Activity;
+
+import android.os.Bundle;
+
+import android.app.Activity;
+
+import android.os.Bundle;
+
+import android.view.View;
+
+import android.view.View.OnClickListener;
+
+import android.widget.Button;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
+
+import android.widget.Button;
 import android.widget.Toast;
 import android.os.StrictMode;
 
@@ -23,6 +39,22 @@ import android.widget.ListView;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.ImageView;
+import android.content.Intent;
+
+import com.facebook.login.widget.LoginButton;
+import com.facebook.CallbackManager;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
+import com.facebook.CallbackManager;
+
 
 
 public class ProfileFragment extends Fragment {
@@ -32,10 +64,12 @@ public class ProfileFragment extends Fragment {
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static DatabaseReference databaseReference = firebaseDatabase.getReference();
     private static ArrayAdapter<User> adapter;
+    private MainActivity activity;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        MainActivity activity = (MainActivity)getActivity();
+      activity = (MainActivity)getActivity();
         //access database and instantiate user
         currentUser = activity.getUser();
         adapter = new UsersAdapter(getActivity().getApplicationContext(),
@@ -62,16 +96,31 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+     //   activity = (MainActivity)getActivity();
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ListView lv = (ListView)view.findViewById(R.id.profile_list);
         Log.d("listview", Integer.toString(visibleUsers.size()));
         lv.setAdapter(adapter);
-
+     /*   LoginButton loginButton = (LoginButton) activity.findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new LoginButton.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("button", "fragment");
+            }
+        });*/
+        //  loginButton.setFragment(this);
         return view;
+    }
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+      //  activity = (MainActivity) getActivity();
+        super.onActivityResult(requestCode, resultCode, data);
+       // activity.getCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
 }

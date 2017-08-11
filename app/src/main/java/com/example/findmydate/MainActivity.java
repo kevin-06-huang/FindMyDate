@@ -1,6 +1,6 @@
 package com.example.findmydate;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.support.annotation.NonNull;
@@ -35,7 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final SharedPreferences pref = getSharedPreferences(PREF, Activity.MODE_PRIVATE);
+        final SharedPreferences pref = getSharedPreferences(PREF, FragmentActivity.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(getApplicationContext());
         auth = FirebaseAuth.getInstance();
@@ -60,6 +60,10 @@ public class MainActivity extends Activity {
 
         final FragmentManager fragmentManager = getFragmentManager();
 
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+      //  loginButton.setFragment(this);
 
         authListener = new FirebaseAuth.AuthStateListener() {
 
@@ -83,8 +87,10 @@ public class MainActivity extends Activity {
                         Log.d("fragment firing", "1");
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragment = new ProfileFragment();
+
                         fragmentTransaction.add(R.id.container, fragment, "profile_fragment");
                         fragmentTransaction.commit();
+                     //   loginButton.setFragment(fragment);
                         PROFILE_FLAG = true;
                     }
                 } else {
@@ -95,9 +101,7 @@ public class MainActivity extends Activity {
         };
         auth.addAuthStateListener(authListener);
 
-        callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
+
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -112,6 +116,12 @@ public class MainActivity extends Activity {
 
             @Override
             public void onError(FacebookException e) {
+            }
+        });
+     //   Button buttonOne = (Button) findViewById(R.id.button1);
+        loginButton.setOnClickListener(new LoginButton.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("button", "activity");
             }
         });
 
@@ -133,6 +143,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getFragmentManager().findFragmentByTag("profile_fragment");
+        fragment.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
     private void handleFacebookAccessToken(AccessToken token) {
@@ -152,7 +164,9 @@ public class MainActivity extends Activity {
                     }
                 });
     }
-
+    public CallbackManager getCallbackManager(){
+        return callbackManager;
+    }
     public  User getUser(){
         return new User(auth.getCurrentUser())  ;
     }

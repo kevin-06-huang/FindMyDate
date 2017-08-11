@@ -35,6 +35,7 @@ public class DatabaseHelper {
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static DatabaseReference databaseReference = firebaseDatabase.getReference();
 
+    private static FirebaseStorage storage = FirebaseStorage.getInstance();
     public static void register(User user){
         DatabaseReference mDatabaseReference = databaseReference.child("users").child(user.getUid());
 
@@ -50,7 +51,6 @@ public class DatabaseHelper {
 
         @Override
         protected Boolean doInBackground(User... params) {
-            FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference mStorageReference = storage.getReferenceFromUrl("gs://findmydate-1c6f4.appspot.com/");
             StorageReference mStorageReferenceImages = mStorageReference.child(params[0].getUid() + "/profile_pic.jpg");
 
