@@ -1,7 +1,6 @@
 package com.example.findmydate;
 
 import java.util.ArrayList;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,52 +9,14 @@ import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import android.app.Activity;
-
-import android.os.Bundle;
-
-import android.app.Activity;
-
-import android.os.Bundle;
-
-import android.view.View;
-
-import android.view.View.OnClickListener;
-
-import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
-
-import android.widget.Button;
-import android.widget.Toast;
-import android.os.StrictMode;
-
-
 import android.widget.ListView;
-
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.ImageView;
 import android.content.Intent;
-
-import com.facebook.login.widget.LoginButton;
-import com.facebook.CallbackManager;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
-import com.facebook.CallbackManager;
-
-
 
 public class ProfileFragment extends Fragment {
 

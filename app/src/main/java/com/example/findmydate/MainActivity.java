@@ -1,7 +1,8 @@
 package com.example.findmydate;
 
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -35,7 +36,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity{
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -51,11 +52,14 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final SharedPreferences pref = getSharedPreferences(PREF, FragmentActivity.MODE_PRIVATE);
+        final SharedPreferences pref = getSharedPreferences(PREF, AppCompatActivity.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
+
         FirebaseApp.initializeApp(getApplicationContext());
         auth = FirebaseAuth.getInstance();
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
         final ImageView imgView = (ImageView)findViewById(R.id.launch_image);
 
         final FragmentManager fragmentManager = getFragmentManager();
@@ -137,14 +141,11 @@ public class MainActivity extends FragmentActivity {
         };
     }
 
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getFragmentManager().findFragmentByTag("profile_fragment");
-        fragment.onActivityResult(requestCode, resultCode, data);
+       // Fragment fragment = getFragmentManager().findFragmentByTag("profile_fragment");
+      //  fragment.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
     private void handleFacebookAccessToken(AccessToken token) {
