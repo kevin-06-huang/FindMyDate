@@ -17,6 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
 import android.widget.ListView;
 import android.content.Intent;
+import android.widget.AdapterView;
+
+import android.widget.AdapterView.OnItemClickListener;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -68,13 +72,16 @@ public class ProfileFragment extends Fragment {
         ListView lv = (ListView)view.findViewById(R.id.profile_list);
         Log.d("listview", Integer.toString(visibleUsers.size()));
         lv.setAdapter(adapter);
-     /*   LoginButton loginButton = (LoginButton) activity.findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new LoginButton.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("button", "fragment");
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int integer,
+                                    long longNumber) {
+                // TODO Auto-generated method stub
+                Log.d("list", visibleUsers.get(integer).getName());
             }
-        });*/
-        //  loginButton.setFragment(this);
+
+        });
         return view;
     }
     @Override
