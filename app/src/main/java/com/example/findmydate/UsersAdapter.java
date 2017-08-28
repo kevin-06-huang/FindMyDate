@@ -1,10 +1,6 @@
 package com.example.findmydate;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.net.*;
-
-import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.content.Context;
 import android.view.View;
@@ -12,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import com.squareup.picasso.Picasso;
 
 public class UsersAdapter extends ArrayAdapter<User> {
@@ -40,23 +34,5 @@ public class UsersAdapter extends ArrayAdapter<User> {
 
         // Return the completed view to render on screen
         return convertView;
-    }
-
-    public class AsynchronousDownloadTask extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            URL url = null;
-            Bitmap bmp = null;
-            try {
-                url = new URL(params[0]);
-            } catch (MalformedURLException e) {
-            }
-            try {
-                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-            } catch (IOException e) {
-
-            }
-            return bmp;
-        }
     }
 }

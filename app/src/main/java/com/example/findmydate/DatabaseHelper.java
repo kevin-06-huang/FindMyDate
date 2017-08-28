@@ -43,10 +43,10 @@ public class DatabaseHelper {
         mDatabaseReference.child("name").setValue(user.getName());
         mDatabaseReference.child("profileURL").setValue(user.getProfileURL());
         mDatabaseReference.child("uid").setValue(user.getUid());
-        new AsynchronousUploadTask().execute(user);
+        new AsynchronousUserUploadTask().execute(user);
 
     }
-    private static class AsynchronousUploadTask extends AsyncTask<User, Void, Boolean> {
+    private static class AsynchronousUserUploadTask extends AsyncTask<User, Void, Boolean> {
 
 
         @Override
@@ -82,6 +82,12 @@ public class DatabaseHelper {
             return false;
         }
 
+    }
+    private static class AsynchronousDateUploadTask extends AsyncTask<Date, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Date... params){
+            return false;
+        }
     }
 
 }
