@@ -17,9 +17,9 @@ public class DateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_date);
         TextView uIDFrom = (TextView) findViewById(R.id.uid_from);
         TextView uIDTo = (TextView) findViewById(R.id.uid_to);
-        Date date = getIntent().getParcelableExtra("date");
-        uIDFrom.setText("From: " + date.getUidFrom());
-        uIDTo.setText("To: " + date.getUidTo());
+        Date date = getIntent().getExtras().getParcelable("date");
+        uIDFrom.setText("From: " + date.getUserFrom().getName());
+        uIDTo.setText("To: " + date.getUserTo().getName());
        // Log.d("date_activity", Boolean.toString(date==null));
      //   Log.d("date_activity", date.getUidFrom());
        // Log.d("date_activity", date.getUidTo());

@@ -1,9 +1,12 @@
 package com.example.findmydate;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.auth.FirebaseUser;
 
-public class User {
+public class User implements Parcelable{
 
 
     private String email;
@@ -41,6 +44,37 @@ public class User {
     }
     public String getUid(){
         return uid;
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(email);
+        out.writeString(name);
+        out.writeString(profileURL);
+        out.writeString(uid);
+    }
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+    private void readFromParcel(Parcel in) {
+
+        email = in.readString();
+        name = in.readString();
+        profileURL = in.readString();
+        uid = in.readString();
+
+    }
+    private User(Parcel in) {
+        readFromParcel(in);
     }
 
 }

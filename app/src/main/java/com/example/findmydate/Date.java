@@ -8,15 +8,15 @@ import android.os.Parcelable;
  */
 
 public class Date implements Parcelable {
-    protected String UidFrom;
-    protected String UidTo;
-    protected String location;
+    private User from;
+    private User to;
+    private String location;
 
 
 
-    public Date(User From, User To){
-        this.UidFrom = From.getUid();
-        this.UidTo = To.getUid();
+    public Date(User from, User to){
+        this.from = from;
+        this.to = to;
     }
 
     private void setLocation(String location){
@@ -29,8 +29,8 @@ public class Date implements Parcelable {
     }
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeString(UidFrom);
-        out.writeString(UidTo);
+        out.writeParcelable(from, flags);
+        out.writeParcelable(to, flags);
         out.writeString(location);
     }
     public static final Parcelable.Creator<Date> CREATOR = new Parcelable.Creator<Date>() {
@@ -42,20 +42,30 @@ public class Date implements Parcelable {
             return new Date[size];
         }
     };
-    public String getUidFrom(){
-        return UidFrom;
+    public User getUserFrom(){
+        return from;
     }
-    public String getUidTo(){
-        return UidTo;
+    public User getUserTo(){
+        return to;
     }
     public String getLocation(){
         return location;
     }
+
+    private void readFromParcel(Parcel in) {
+        final ClassLoader cl = getClass().getClassLoader();
+
+        from = in.readParcelable(cl);
+        to = in.readParcelable(cl);
+        location = in.readString();
+
+    }
     private Date(Parcel in) {
+        readFromParcel(in);
     //    Date date = Date.class.cast(in.readValue(Date.class.getClassLoader()));
-        this.UidFrom = in.readString();
-        this.UidTo = in.readString();
-        this.location = in.readString();
+    /*    this.From = in.readValue(User.getClassLoader());
+        this.To = in.readValue();
+        this.location = in.readString();*/
     }
     // simple class that just has one member property as an example
 }
