@@ -42,13 +42,13 @@ public class Date implements Parcelable {
             return new Date[size];
         }
     };
-    private String getUidFrom(){
+    public String getUidFrom(){
         return UidFrom;
     }
-    private String getUidTo(){
+    public String getUidTo(){
         return UidTo;
     }
-    private String getLocation(){
+    public String getLocation(){
         return location;
     }
     private Date(Parcel in) {
