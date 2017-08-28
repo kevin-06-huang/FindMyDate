@@ -26,7 +26,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+
 import android.net.Uri;
+
 import com.google.firebase.storage.FirebaseStorage;
 
 import android.content.SharedPreferences;
@@ -36,7 +38,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.StorageReference;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -60,14 +62,14 @@ public class MainActivity extends AppCompatActivity{
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        final ImageView imgView = (ImageView)findViewById(R.id.launch_image);
+        final ImageView imgView = (ImageView) findViewById(R.id.launch_image);
 
         final FragmentManager fragmentManager = getFragmentManager();
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
-      //  loginButton.setFragment(this);
+        //  loginButton.setFragment(this);
 
         authListener = new FirebaseAuth.AuthStateListener() {
 
@@ -92,19 +94,29 @@ public class MainActivity extends AppCompatActivity{
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragment = new ProfileFragment();
 
-                        fragmentTransaction.add(R.id.container, fragment, "profile_fragment");
+                        fragmentTransaction.replace(R.id.fragment_container, fragment, "profile_fragment");
                         fragmentTransaction.commit();
-                     //   loginButton.setFragment(fragment);
+                        //   loginButton.setFragment(fragment);
                         PROFILE_FLAG = true;
                     }
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
-                    imgView.setVisibility(View.VISIBLE);
+
+                    Fragment fragment = fragmentManager.findFragmentByTag("profile_fragment");
+                    if (fragment != null && PROFILE_FLAG == true) {
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.remove(fragment);
+                        fragmentTransaction.commit();
+                        PROFILE_FLAG = false;
+
+                        imgView.setVisibility(View.VISIBLE);
+                    }
+
+
                 }
             }
         };
         auth.addAuthStateListener(authListener);
-
 
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -116,13 +128,15 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onCancel() {
+
+                Log.d(TAG, "facebook:onCancel:");
             }
 
             @Override
             public void onError(FacebookException e) {
             }
         });
-     //   Button buttonOne = (Button) findViewById(R.id.button1);
+        //   Button buttonOne = (Button) findViewById(R.id.button1);
         loginButton.setOnClickListener(new LoginButton.OnClickListener() {
             public void onClick(View v) {
                 Log.d("button", "activity");
@@ -136,6 +150,7 @@ public class MainActivity extends AppCompatActivity{
                 if (currentAccessToken == null) {
                     Log.d("logout", "logged out");
                     FirebaseAuth.getInstance().signOut();
+
                 }
             }
         };
@@ -144,10 +159,11 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       // Fragment fragment = getFragmentManager().findFragmentByTag("profile_fragment");
-      //  fragment.onActivityResult(requestCode, resultCode, data);
+        // Fragment fragment = getFragmentManager().findFragmentByTag("profile_fragment");
+        //  fragment.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -165,11 +181,13 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
     }
-    public CallbackManager getCallbackManager(){
+
+    public CallbackManager getCallbackManager() {
         return callbackManager;
     }
-    public  User getUser(){
-        return new User(auth.getCurrentUser())  ;
+
+    public User getUser() {
+        return new User(auth.getCurrentUser());
     }
 
 }

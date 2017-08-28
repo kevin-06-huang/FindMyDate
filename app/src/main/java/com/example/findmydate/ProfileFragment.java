@@ -25,7 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ProfileFragment extends Fragment {
 
     private static User currentUser;
-    private static ArrayList<User> visibleUsers = new ArrayList<User>();
+    private static ArrayList<User> visibleUsers;
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static DatabaseReference databaseReference = firebaseDatabase.getReference();
     private static ArrayAdapter<User> adapter;
@@ -37,6 +37,7 @@ public class ProfileFragment extends Fragment {
       activity = (MainActivity)getActivity();
         //access database and instantiate user
         currentUser = activity.getUser();
+        visibleUsers = new ArrayList<User>();
         adapter = new UsersAdapter(getActivity().getApplicationContext(),
                 visibleUsers);
         databaseReference.child("users")
