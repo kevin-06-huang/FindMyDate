@@ -77,10 +77,11 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int integer,
                                     long longNumber) {
+                Log.d("list", visibleUsers.get(integer).getName());
                 Intent i= new Intent(getActivity(), DateActivity.class);
                 Date date = new Date(currentUser, visibleUsers.get(integer));
                 i.putExtra("date", date);
-                getActivity().startActivity(i);
+                startActivity(i);
                 Log.d("list", visibleUsers.get(integer).getName());
 
             }

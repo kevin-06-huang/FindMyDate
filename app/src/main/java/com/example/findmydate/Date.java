@@ -12,9 +12,7 @@ public class Date implements Parcelable {
     protected String UidTo;
     protected String location;
 
-    public Date(){
 
-    }
 
     public Date(User From, User To){
         this.UidFrom = From.getUid();
@@ -31,7 +29,9 @@ public class Date implements Parcelable {
     }
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeValue(this);
+        out.writeString(UidFrom);
+        out.writeString(UidTo);
+        out.writeString(location);
     }
     public static final Parcelable.Creator<Date> CREATOR = new Parcelable.Creator<Date>() {
         public Date createFromParcel(Parcel in) {
@@ -52,10 +52,10 @@ public class Date implements Parcelable {
         return location;
     }
     private Date(Parcel in) {
-        Date date = Date.class.cast(in.readValue(Date.class.getClassLoader()));
-        this.UidFrom = date.getUidFrom();
-        this.UidTo = date.getUidTo();
-        this.location = date.getLocation();
+    //    Date date = Date.class.cast(in.readValue(Date.class.getClassLoader()));
+        this.UidFrom = in.readString();
+        this.UidTo = in.readString();
+        this.location = in.readString();
     }
     // simple class that just has one member property as an example
 }
