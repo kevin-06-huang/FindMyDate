@@ -67,5 +67,4 @@ public class Date implements Parcelable {
         this.To = in.readValue();
         this.location = in.readString();*/
     }
-    // simple class that just has one member property as an example
 }

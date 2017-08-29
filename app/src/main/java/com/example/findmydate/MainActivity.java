@@ -1,6 +1,7 @@
 package com.example.findmydate;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
     private AccessTokenTracker accessTokenTracker;
+    private static View main;
 
     private static boolean PROFILE_FLAG = false;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final SharedPreferences pref = getSharedPreferences(PREF, AppCompatActivity.MODE_PRIVATE);
         setContentView(R.layout.activity_main);
+        main = findViewById(android.R.id.content);
 
         FirebaseApp.initializeApp(getApplicationContext());
         auth = FirebaseAuth.getInstance();
@@ -189,5 +192,12 @@ public class MainActivity extends AppCompatActivity {
     public User getUser() {
         return new User(auth.getCurrentUser());
     }
-
+    public static void dateSent(){
+        Snackbar.make(main, "Date has been sent!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+    public static void dateCancelled(){
+        Snackbar.make(main, "Date has been cancelled!", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
 }

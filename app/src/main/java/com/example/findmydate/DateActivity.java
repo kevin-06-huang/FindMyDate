@@ -44,8 +44,8 @@ public class DateActivity extends AppCompatActivity {
                 String location = locationEdit.getText().toString();
                 // check if location is vcalid
                 if(location.length() != 0){
-                    Snackbar.make(view, "Date has been send!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    MainActivity.dateSent();
+                    finish();
                 }
                 else{
                     Snackbar.make(view, "Input valid data!", Snackbar.LENGTH_LONG)
@@ -62,9 +62,7 @@ public class DateActivity extends AppCompatActivity {
                         getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
-
-                Snackbar.make(view, "Date has been cancelled!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                MainActivity.dateCancelled();
                 finish();
             }
         });
