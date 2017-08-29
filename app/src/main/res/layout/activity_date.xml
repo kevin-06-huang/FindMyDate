@@ -54,7 +54,7 @@
             android:padding="10dp"
             android:text="uid_to" />
         <EditText
-            android:id="@+id/Id"
+            android:id="@+id/location"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 
