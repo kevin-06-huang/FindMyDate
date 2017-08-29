@@ -19,7 +19,7 @@ public class Date implements Parcelable {
         this.to = to;
     }
 
-    private void setLocation(String location){
+    public void setLocation(String location){
         this.location = location;
     }
 

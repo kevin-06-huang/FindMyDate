@@ -26,7 +26,7 @@ public class DateActivity extends AppCompatActivity {
         FloatingActionButton send = (FloatingActionButton) findViewById(R.id.send_date);
         FloatingActionButton cancel = (FloatingActionButton) findViewById(R.id.cancel_date);
         // set the view value according to parcelled date
-        Date date = getIntent().getExtras().getParcelable("date");
+        final Date date = getIntent().getExtras().getParcelable("date");
         uIDFrom.setText("From: " + date.getUserFrom().getName());
         uIDTo.setText("To: " + date.getUserTo().getName());
         //set listener on send button
@@ -44,6 +44,8 @@ public class DateActivity extends AppCompatActivity {
                 String location = locationEdit.getText().toString();
                 // check if location is vcalid
                 if(location.length() != 0){
+                    date.setLocation(location);
+                    DatabaseHelper.sendDate(date);
                     MainActivity.dateSent();
                     finish();
                 }

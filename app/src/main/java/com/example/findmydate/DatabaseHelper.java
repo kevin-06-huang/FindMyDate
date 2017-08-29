@@ -46,6 +46,28 @@ public class DatabaseHelper {
         new AsynchronousUserUploadTask().execute(user);
 
     }
+    public static void sendDate(Date date){
+        final Date myDate = date;
+        final User userTo = date.getUserTo();
+        final User userFrom = date.getUserFrom();
+        final DatabaseReference mDatabaseReference =
+                databaseReference.child("dates").child(userTo.getUid())
+                                                .child(userFrom.getUid());
+
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                mDatabaseReference.child("Suitor's Name").setValue(userFrom.getName());
+                mDatabaseReference.child("Suitor's Uid").setValue(userFrom.getUid());
+                mDatabaseReference.child("location").setValue(myDate.getLocation());
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     private static class AsynchronousUserUploadTask extends AsyncTask<User, Void, Boolean> {
 
 
@@ -83,11 +105,40 @@ public class DatabaseHelper {
         }
 
     }
+    /*
     private static class AsynchronousDateUploadTask extends AsyncTask<Date, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Date... params){
+            StorageReference mStorageReference = storage.getReferenceFromUrl("gs://findmydate-1c6f4.appspot.com/");
+            StorageReference mStorageReferenceImages = mStorageReference.child(params[0].getUserFrom() + "/profile_pic.jpg");
+
+            //  InputStream stream = new FileInputStream(new File("path/to/images/rivers.jpg"));
+            InputStream input = null;
+
+            try{
+                input = new URL(params[0].getProfileURL()).openStream();
+
+            }catch(MalformedURLException e){
+
+            }catch(IOException e){
+
+            }
+
+            UploadTask uploadTask = mStorageReferenceImages.putStream(input);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //  Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                }
+            });
             return false;
         }
     }
-
+*/
 }
