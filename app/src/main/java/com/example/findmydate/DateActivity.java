@@ -20,13 +20,29 @@ public class DateActivity extends AppCompatActivity {
         Date date = getIntent().getExtras().getParcelable("date");
         uIDFrom.setText("From: " + date.getUserFrom().getName());
         uIDTo.setText("To: " + date.getUserTo().getName());
+        FloatingActionButton send = (FloatingActionButton) findViewById(R.id.send_date);
+        FloatingActionButton cancel = (FloatingActionButton) findViewById(R.id.cancel_date);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Date has been send!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Date has been cancelled!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
        // Log.d("date_activity", Boolean.toString(date==null));
      //   Log.d("date_activity", date.getUidFrom());
        // Log.d("date_activity", date.getUidTo());
      /*   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
