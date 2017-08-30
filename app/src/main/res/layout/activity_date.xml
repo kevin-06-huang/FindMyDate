@@ -1,85 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.findmydate.DateActivity">
-
-
-
-    <include layout="@layout/content_date" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
-</android.support.design.widget.CoordinatorLayout>
--->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.findmydate.DateActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="com.example.findmydate.DateActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark" />
 
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"/>
-        <TextView
-            android:id="@+id/uid_from"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/uid_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="uid_from" />
 
-            android:padding="10dp"
-            android:text="uid_from" />
-        <TextView
-            android:id="@+id/uid_to"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/uid_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="uid_to" />
 
-            android:padding="10dp"
-            android:text="uid_to" />
-        <EditText
-            android:id="@+id/location"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="10dp"></EditText>
 
-            android:padding="10dp"
-            android:background="@android:color/transparent" >
-        </EditText>
     <LinearLayout
         android:id="@+id/btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/send_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:layout_weight="1"
-            android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_dialog_email" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/cancel_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_delete" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cancel_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_delete" />
     </LinearLayout>
 </LinearLayout>
