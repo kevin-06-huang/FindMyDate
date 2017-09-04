@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -183,6 +186,23 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+    // create an action bar button
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // handle button activities
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.heart_button) {
+            Log.d("heart", "adgsdg");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public CallbackManager getCallbackManager() {
