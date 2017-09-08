@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authListener;
     private AccessTokenTracker accessTokenTracker;
     private static View main;
+    private FragmentManager fragmentManager;
 
     private static boolean PROFILE_FLAG = false;
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         final ImageView imgView = (ImageView) findViewById(R.id.launch_image);
 
-        final FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager = getFragmentManager();
 
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -201,6 +202,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.heart_button) {
             Log.d("heart", "adgsdg");
+            Fragment fragment = new CardFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment, "card_fragment");
+            transaction.commit();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 public class UsersAdapter extends ArrayAdapter<User> {
@@ -30,6 +31,7 @@ public class UsersAdapter extends ArrayAdapter<User> {
         ImageView picture = (ImageView) convertView.findViewById(R.id.profile_picture);
         name.setText(user.getName());
         picture.setTag(user.getProfileURL());
+       // Glide.with(getContext()).load(user.getProfileURL()).into(picture);
         Picasso.with(getContext()).load(user.getProfileURL()).into(picture);
 
         // Return the completed view to render on screen

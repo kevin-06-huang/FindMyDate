@@ -34,7 +34,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-      activity = (MainActivity)getActivity();
+        activity = (MainActivity)getActivity();
         //access database and instantiate user
         currentUser = activity.getUser();
         visibleUsers = new ArrayList<User>();
