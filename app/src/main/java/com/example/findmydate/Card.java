@@ -6,8 +6,15 @@ import com.mindorks.placeholderview.annotations.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Context;
+import com.bumptech.glide.Glide;
+import android.util.Log;
 
 import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.annotations.swipe.SwipeCancelState;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
+import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 
 /**
  * Created by kevincrazykid on 07/09/17.
@@ -33,13 +40,12 @@ public class Card {
         mUser = user;
         mSwipeView = swipeView;
     }
-    /*
 
     @Resolve
     private void onResolved(){
-        Glide.with(mContext).load(mUser.getImageUrl()).into(profileImageView);
-        nameTxt.setText(mUser.getName() + ", " + mUser.getAge());
-        locationNameTxt.setText(mUser.getLocation());
+        Glide.with(mContext).load(mUser.getProfileURL()).into(userImageView);
+        nameTxt.setText(mUser.getName());
+     //   locationNameTxt.setText(mUser.getLocation());
     }
 
     @SwipeOut
@@ -47,6 +53,7 @@ public class Card {
         Log.d("EVENT", "onSwipedOut");
         mSwipeView.addView(this);
     }
+
 
     @SwipeCancelState
     private void onSwipeCancelState(){
@@ -66,5 +73,5 @@ public class Card {
     @SwipeOutState
     private void onSwipeOutState(){
         Log.d("EVENT", "onSwipeOutState");
-    }*/
+    }
 }

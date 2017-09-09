@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 public class UsersAdapter extends ArrayAdapter<User> {
