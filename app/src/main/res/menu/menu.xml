@@ -6,4 +6,10 @@
         app:showAsAction="always"
         android:icon="@drawable/heart_button"
         />
+    <item
+        android:id="@+id/date_button"
+        android:title=""
+        app:showAsAction="always"
+        android:icon="@drawable/heart"
+        />
 </menu>
