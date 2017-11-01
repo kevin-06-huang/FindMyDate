@@ -10,6 +10,6 @@
         android:id="@+id/date_button"
         android:title=""
         app:showAsAction="always"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/date"
         />
 </menu>

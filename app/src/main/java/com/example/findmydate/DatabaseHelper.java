@@ -57,7 +57,7 @@ public class DatabaseHelper {
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                mDatabaseReference.child("Accepted").setValue(false);
                 mDatabaseReference.child("Suitor's Name").setValue(userFrom.getName());
                 mDatabaseReference.child("Suitor's Uid").setValue(userFrom.getUid());
                 mDatabaseReference.child("location").setValue(myDate.getLocation());

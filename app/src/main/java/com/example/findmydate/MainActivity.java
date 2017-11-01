@@ -207,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
             transaction.replace(R.id.fragment_container, fragment, "card_fragment");
             transaction.commit();
         }
+        else if(id == R.id.date_button){
+
+            Log.d("date", "adsfsdafsd");
+        }
         return super.onOptionsItemSelected(item);
     }
 
