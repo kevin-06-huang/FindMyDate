@@ -11,8 +11,13 @@ public class Date implements Parcelable {
     private User from;
     private User to;
     private String location;
+    //private Boolean accepted;
+   // private String suitor_name;
 
 
+    public Date() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
 
     public Date(User from, User to){
         this.from = from;
@@ -50,6 +55,22 @@ public class Date implements Parcelable {
     }
     public String getLocation(){
         return location;
+    }
+    // to date from string; this method convert a string from datasnapshot into a date
+    // class
+    // DataSnapshot {
+    //      key = 7f3tkfj14Jb9z11FZG0rBmuJCo12,
+    //      value = {
+    //          location=mt. pleasant,
+    //          Suitor's Uid=7f3tkfj14Jb9z11FZG0rBmuJCo12,
+    //          Accepted=false,
+    //          Suitor's Name=Chris Dean
+    //      }
+    // }
+    // parse above into a date
+    public Date toDate(String date){
+       // date.
+        return new Date();
     }
 
     private void readFromParcel(Parcel in) {

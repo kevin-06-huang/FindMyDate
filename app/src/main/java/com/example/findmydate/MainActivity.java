@@ -210,6 +210,10 @@ public class MainActivity extends AppCompatActivity {
         else if(id == R.id.date_button){
 
             Log.d("date", "adsfsdafsd");
+            Fragment fragment = new DateFragment();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, fragment,"date_fragment");
+            transaction.commit();
         }
         return super.onOptionsItemSelected(item);
     }
